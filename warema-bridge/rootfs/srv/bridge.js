@@ -43,7 +43,7 @@ function registerDevice(element) {
   var payload
   switch (parseInt(element.type)) {
     case 6:
-      model = 'Weather station'
+      model = 'Weather Station'
       payload = {
         ...base_payload,
         device: {
@@ -153,7 +153,8 @@ function callback(err, msg) {
         stickUsb.setPosUpdInterval(30000);
         break
       case 'wms-vb-rcv-weather-broadcast':
-        if (registered_shades.includes(msg.payload.weather.snr)) {
+          if ( 0 ) {
+//        if (registered_shades.includes(msg.payload.weather.snr)) {
           client.publish('warema/' + msg.payload.weather.snr + '/illuminance/state', msg.payload.weather.lumen.toString())
           client.publish('warema/' + msg.payload.weather.snr + '/temperature/state', msg.payload.weather.temp.toString())
         } else {
