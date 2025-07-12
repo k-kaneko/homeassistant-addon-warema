@@ -157,8 +157,8 @@ function callback(err, msg) {
 //        if (registered_shades.includes(msg.payload.weather.snr)) {
           client.publish('warema/' + msg.payload.weather.snr + '/illuminance/state', msg.payload.weather.lumen.toString())
           client.publish('warema/' + msg.payload.weather.snr + '/temperature/state', msg.payload.weather.temp.toString())
-          client.publish('warema/' + msg.payload.weather.snr + '/temperature/state', msg.payload.weather.rain.toString())
-          client.publish('warema/' + msg.payload.weather.snr + '/temperature/state', msg.payload.weather.wind.toString())
+          client.publish('warema/' + msg.payload.weather.snr + '/precipitation_intensity/state', msg.payload.weather.rain.toString())
+          client.publish('warema/' + msg.payload.weather.snr + '/wind_speed/state', msg.payload.weather.wind.toString())
         } else {
           var availability_topic = 'warema/' + msg.payload.weather.snr + '/availability'
           var payload = {
