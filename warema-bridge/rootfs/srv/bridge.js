@@ -153,8 +153,8 @@ function callback(err, msg) {
         stickUsb.setPosUpdInterval(30000);
         break
       case 'wms-vb-rcv-weather-broadcast':
-          if ( 0 ) {
-//        if (registered_shades.includes(msg.payload.weather.snr)) {
+//          if ( 0 ) {
+        if (registered_shades.includes(msg.payload.weather.snr)) {
           client.publish('warema/' + msg.payload.weather.snr + '/illuminance/state', msg.payload.weather.lumen.toString())
           client.publish('warema/' + msg.payload.weather.snr + '/temperature/state', msg.payload.weather.temp.toString())
           client.publish('warema/' + msg.payload.weather.snr + '/precipitation_intensity/state', msg.payload.weather.rain.toString())
