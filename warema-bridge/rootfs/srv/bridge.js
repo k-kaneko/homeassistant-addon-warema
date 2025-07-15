@@ -22,7 +22,7 @@ var shade_position = []
 function registerDevice(element) {
   console.log('Registering ' + element.snr)
   var topic = 'homeassistant/cover/' + element.snr + '/' + element.snr + '/config'
-  var availability_topic = 'warema/' + element.snr + '/availability'
+  var availability_topic = ''homeassistant/cover/' + element.snr + '/availability'
 
   var base_payload = {
     name: element.snr,
@@ -120,7 +120,7 @@ function registerDevice(element) {
           ...base_device,
           model: model
         }
-      }
+      }          
       break
 
     default:
@@ -136,9 +136,17 @@ function registerDevice(element) {
 
     stickUsb.vnBlindAdd(parseInt(element.snr), element.snr.toString());
     registered_shades += element.snr
-    client.publish(availability_topic, 'online', {retain: true})
+    if (parseInt(element.type) == 63) {
+      client.publish('homeassistant/binary_sensor/warema/' + element.snr + '/availability', 'online', {retain: true})
+    } else {
+      client.publish(availability_topic, 'online', {retain: true})
+    }
   }
-  client.publish(topic, JSON.stringify(payload))
+  if (parseInt(element.type) == 63) {
+    client.publish('homeassistant/binary_sensor/warema/' + element.snr + '/config', JSON.stringify(payload))
+  } else {
+    client.publish(topic, JSON.stringify(payload))
+  }
 }
 
 function registerDevices() {
