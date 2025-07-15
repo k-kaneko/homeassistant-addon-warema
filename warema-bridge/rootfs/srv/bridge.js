@@ -153,10 +153,10 @@ function callback(err, msg) {
         stickUsb.setPosUpdInterval(30000);
         break
       case 'wms-vb-rcv-weather-broadcast':
-        if ( 0 ) {
-//         if (registered_shades.includes(msg.payload.weather.snr)) {
-          client.publish('warema/' + msg.payload.weather.snr + '/illuminance/state', msg.payload.weather.lumen.toString())
-          client.publish('warema/' + msg.payload.weather.snr + '/temperature/state', msg.payload.weather.temp.toString())
+//        if ( 0 ) {
+         if (registered_shades.includes(msg.payload.weather.snr)) {
+          client.publish('homeassistant/sensor/warema' + msg.payload.weather.snr + '/illuminance/state', msg.payload.weather.lumen.toString())
+          client.publish('homeassistant/sensor/warema' + msg.payload.weather.snr + '/temperature/state', msg.payload.weather.temp.toString())
           client.publish('warema/' + msg.payload.weather.snr + '/precipitation_intensity/state', msg.payload.weather.rain.toString())
           client.publish('warema/' + msg.payload.weather.snr + '/wind_speed/state', msg.payload.weather.wind.toString())
         } else {
@@ -178,21 +178,21 @@ function callback(err, msg) {
 
           var illuminance_payload = {
             ...payload,
-            state_topic: 'warema/' + msg.payload.weather.snr + '/illuminance/state',
+            state_topic: 'homeassistant/sensor/warema/' + msg.payload.weather.snr + '/illuminance/state',
             device_class: 'illuminance',
             unique_id: msg.payload.weather.snr + '_illuminance',
             unit_of_measurement: 'lx',
           }
-          client.publish('homeassistant/sensor/' + msg.payload.weather.snr + '/illuminance/config', JSON.stringify(illuminance_payload))
+          client.publish('homeassistant/sensor/warema' + msg.payload.weather.snr + '/illuminance/config', JSON.stringify(illuminance_payload))
 
           var temperature_payload = {
             ...payload,
-            state_topic: 'warema/' + msg.payload.weather.snr + '/temperature/state',
+            state_topic: 'homeassistant/sensor/warema/' + msg.payload.weather.snr + '/temperature/state',
             device_class: 'temperature',
             unique_id: msg.payload.weather.snr + '_temperature',
             unit_of_measurement: '°C',
           }
-          client.publish('homeassistant/sensor/' + msg.payload.weather.snr + '/temperature/config', JSON.stringify(temperature_payload))
+          client.publish('homeassistant/sensor/warema/' + msg.payload.weather.snr + '/temperature/config', JSON.stringify(temperature_payload))
               
           var rain_payload = {
             ...payload,
