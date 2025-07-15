@@ -49,7 +49,7 @@ function registerDevice(element) {
         device: {
           ...base_device,
           model: model
-        }
+        },
       }
       break
     // WMS WebControl Pro - while part of the network, we have no business to do with it.
@@ -112,14 +112,14 @@ function registerDevice(element) {
         set_position_topic: 'warema/' + element.snr + '/set_position',
       }
       break
-    case 63:
+    case 99:
       model = 'Weather Station PLUS'
       payload = {
         ...base_payload,
         device: {
           ...base_device,
           model: model
-        }
+        },
       }          
       break
 
