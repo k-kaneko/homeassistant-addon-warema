@@ -166,12 +166,12 @@ function callback(err, msg) {
       case 'wms-vb-rcv-weather-broadcast':
 //        if ( 0 ) {
          if (registered_shades.includes(msg.payload.weather.snr)) {
-          client.publish('homeassistant/sensor/warema' + msg.payload.weather.snr + '/illuminance/state', msg.payload.weather.lumen.toString())
-          client.publish('homeassistant/sensor/warema' + msg.payload.weather.snr + '/temperature/state', msg.payload.weather.temp.toString())
-          client.publish('warema/' + msg.payload.weather.snr + '/precipitation_intensity/state', msg.payload.weather.rain.toString())
-          client.publish('warema/' + msg.payload.weather.snr + '/wind_speed/state', msg.payload.weather.wind.toString())
+          client.publish('homeassistant/sensor/warema/' + msg.payload.weather.snr + '/illuminance/state', msg.payload.weather.lumen.toString())
+          client.publish('homeassistant/sensor/warema/' + msg.payload.weather.snr + '/temperature/state', msg.payload.weather.temp.toString())
+          client.publish('homeassistant/sensor/warema/' + msg.payload.weather.snr + '/precipitation_intensity/state', msg.payload.weather.rain.toString())
+          client.publish('homeassistant/sensor/warema/' + msg.payload.weather.snr + '/wind_speed/state', msg.payload.weather.wind.toString())
         } else {
-          var availability_topic = 'warema/' + msg.payload.weather.snr + '/availability'
+          var availability_topic = 'homeassistant/binary_sensor/warema/' + msg.payload.weather.snr + '/availability'
           var payload = {
             name: msg.payload.weather.snr,
             availability: [
@@ -181,7 +181,7 @@ function callback(err, msg) {
             device: {
               identifiers: msg.payload.weather.snr,
               manufacturer: 'Warema',
-              model: 'Weather Station',
+              model: 'Weather Station PLUS',
               name: msg.payload.weather.snr
             },
             force_update: true
@@ -207,21 +207,21 @@ function callback(err, msg) {
               
           var rain_payload = {
             ...payload,
-            state_topic: 'warema/' + msg.payload.weather.snr + '/precipitation_intensity/state',
+            state_topic: 'homeassistant/sensor/warema/' + msg.payload.weather.snr + '/precipitation_intensity/state',
             device_class: 'precipitation_intensity',
             unique_id: msg.payload.weather.snr + '_precipitation_intensity',
             unit_of_measurement: 'mm/h',
           }
-          client.publish('homeassistant/sensor/' + msg.payload.weather.snr + '/precipitation_intensity/config', JSON.stringify(rain_payload))
+          client.publish('homeassistant/sensor/warema/' + msg.payload.weather.snr + '/precipitation_intensity/config', JSON.stringify(rain_payload))
 
           var wind_payload = {
             ...payload,
-            state_topic: 'warema/' + msg.payload.weather.snr + '/wind_speed/state',
+            state_topic: 'homeassistant/sensor/warema/' + msg.payload.weather.snr + '/wind_speed/state',
             device_class: 'wind_speed',
             unique_id: msg.payload.weather.snr + '_wind_speed',
             unit_of_measurement: 'm/s',
           }
-          client.publish('homeassistant/sensor/' + msg.payload.weather.snr + '/wind_speed/config', JSON.stringify(wind_payload))
+          client.publish('homeassistant/sensor/warema/' + msg.payload.weather.snr + '/wind_speed/config', JSON.stringify(wind_payload))
               
           client.publish(availability_topic, 'online', {retain: true})
           registered_shades += msg.payload.weather.snr
