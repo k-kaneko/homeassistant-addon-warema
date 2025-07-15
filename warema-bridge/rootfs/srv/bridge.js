@@ -112,6 +112,17 @@ function registerDevice(element) {
         set_position_topic: 'warema/' + element.snr + '/set_position',
       }
       break
+    case 63:
+      model = 'Weather Station PLUS'
+      payload = {
+        ...base_payload,
+        device: {
+          ...base_device,
+          model: model
+        }
+      }
+      break
+
     default:
       console.log('Unrecognized device type: ' + element.type)
       model = 'Unknown model ' + element.type
