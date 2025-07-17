@@ -112,7 +112,7 @@ function registerDevice(element) {
         set_position_topic: 'warema/' + element.snr + '/set_position',
       }
       break
-    case 99:
+    case 64:
       model = 'Weather Station PLUS'
       payload = {
         ...base_payload,
