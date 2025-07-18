@@ -172,6 +172,7 @@ function callback(err, msg) {
         stickUsb.setPosUpdInterval(30000);
         break
       case 'wms-vb-rcv-weather-broadcast':
+         console.log('weather: ' + JSON.stringify(msg));
 //        if ( 0 ) {
          if (registered_shades.includes(msg.payload.weather.snr)) {
           client.publish('homeassistant/sensor/warema/' + msg.payload.weather.snr + '/illuminance/state', msg.payload.weather.lumen.toString())
