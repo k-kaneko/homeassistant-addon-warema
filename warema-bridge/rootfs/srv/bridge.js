@@ -122,6 +122,16 @@ function registerDevice(element) {
         },
       }          
       break
+    case 64:
+      model = 'Weather Station PLUS'
+      payload = {
+        ...base_payload,
+        device: {
+          ...base_device,
+          model: model
+        },
+      }          
+      break
 
     default:
       console.log('Unrecognized device type: ' + element.type)
