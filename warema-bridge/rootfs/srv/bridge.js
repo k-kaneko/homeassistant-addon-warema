@@ -146,13 +146,13 @@ function registerDevice(element) {
 
     stickUsb.vnBlindAdd(parseInt(element.snr), element.snr.toString());
     registered_shades += element.snr
-    if (parseInt(element.type) == 63) {
+    if (parseInt(element.type) == 64) {
       client.publish('homeassistant/binary_sensor/warema/' + element.snr + '/availability', 'online', {retain: true})
     } else {
       client.publish(availability_topic, 'online', {retain: true})
     }
   }
-  if (parseInt(element.type) == 63) {
+  if (parseInt(element.type) == 64) {
     client.publish('homeassistant/binary_sensor/warema/' + element.snr + '/config', JSON.stringify(payload))
   } else {
     client.publish(topic, JSON.stringify(payload))
